@@ -1,0 +1,58 @@
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    margin: 0;
+    padding:0;
+}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,menu,input,textarea,p,blockquote,th,td{margin:0;padding:0;font-family:Helvetica, Tahoma, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", STXihei, STHeiti, Heiti, SimSun, sans-serif; font-size:100%;}
+html,body{color:#333333;}
+body{background:#fff;overflow-x: hidden;}
+ul,ol,li{ list-style:none;}
+a:link, a:visited{ color:#333; text-decoration:none;}
+a:hover{ color:#12b7f5;}
+img{ border:none;}
+em{ font-style:normal;}
+h1,h2,h3,h4,h5{ font-weight:normal;}
+.center{text-align: center;}
+.clear:after{ content:'.';display:block;overflow:hidden;visibility:hidden;font-size:0;line-height:0;width:0;height:0;}
+.clear{clear:both;}
+.cursor{cursor: pointer;}
+.fl{float:left;display: inline-block;}
+.fr{float:right;}
+.flex{display: flex;}
+.between{display: flex;justify-content: space-between;}
+.content{
+    box-shadow: -8px 12px 18px 0px rgba(0, 0, 0, 0.1);
+    padding:24px;
+    background: white;
+    border-radius: 4px;
+    .title{
+        font-size: 20px;
+        font-weight: 500;
+        color: #686868;
+        padding-bottom: 29px;
+    }
+}
+.hei100{
+    height: 100%;
+}
+.yscroll{
+    overflow-y: scroll;
+}
+.mb24{
+    margin-bottom: 24px;
+}
+.reverse{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.ml9{
+    margin-left: 9px;
+}
+::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
