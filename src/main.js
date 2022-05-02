@@ -9,6 +9,7 @@ const app = createApp(App)
 import router from './router'
 import vuexs from './store'
 
+
 /* axios */
 // import api from './api/api.js'
 // app.config.globalProperties.$axios = api
@@ -21,13 +22,18 @@ import vuexs from './store'
 import 'swiper/dist/css/swiper.min.css';
 /* 重置样式 */
 import './assets/css/reset.min.css'
-/* animate.css */
-import 'animate.css'
+
+
 /* jquery */
 import 'jquery'
+
 /* bootstarp */
 import './assets/css/bootstrap.min.css'
 import './assets/js/bootstrap.min'
+
+/* animate.css */
+import 'animate.css'
+
 
 /* 头部组件 */
 import Header from './components/Header'

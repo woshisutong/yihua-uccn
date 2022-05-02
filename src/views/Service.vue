@@ -1,143 +1,149 @@
 <template>
-    <div id="Service">
-        <div class="container text-center">
-            <h3>我们的服务</h3>
-            <p style="color:#b2b2b2">The Best Service You Never See</p>
-        </div>
-        <div class="container">
-            <div class="Service-container row">
-                <div class="Service-item col-xs-12 col-sm-6 col-md-3 wow slideInUp" 
-                v-for="(item,index) in serviceList" :key="index" @click="ServiceClick(item.id)">
-                    <div class="Service-item-wrapper">
-                        <div class="Service-item-top">
-                            <h4>{{item.title}}</h4>
-                            <i></i>
-                            <p>{{item.eng_title}}</p>
-                        </div>
-                        <div class="Service-item-img">
-                            <img :src="item.img" alt="服务">
-                        </div>
-                        <div class="Service-item-border"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div>
+		<!-- 导航区域 -->
+		<ul class="navs" style="display: flex;">
+			<li :class="{ active: active === 0 }" @click="scrollTo(0)">1content-0</li>
+			<li :class="{ active: active === 1 }" @click="scrollTo(1)">1content-1</li>
+			<li :class="{ active: active === 2 }" @click="scrollTo(2)">1content-2</li>
+			<li :class="{ active: active === 3 }" @click="scrollTo(3)">1content-3</li>
+			<li :class="{ active: active === 4 }" @click="scrollTo(4)">1content-4</li>
+		</ul>
+		
+		<!-- 内容区域 -->
+		<div class="content">
+			<div class="item">content-0</div>
+			<div class="item">content-1</div>
+			<div style="height: 100px;" class="item">content-2</div>
+			<div class="item">content-3</div>
+			<div class="item">content-4</div>
+		</div>
+
+	</div>
 </template>
+
 <script>
-import { WOW } from 'wowjs';
 export default {
-    name: 'Service',
-    data(){
-        return{
-            serviceList: [
-                {
-                    id: 'section-1',
-                    title: '软件定制开发',
-                    eng_title: 'Customize App',
-                    img: require('@/assets/img/service1.jpg')
-                },{
-                    id: 'section-2',
-                    title: 'IT外包服务',
-                    eng_title: 'Outsourcing',
-                    img: require('@/assets/img/service2.jpg')
-                },{
-                    id: 'section-3',
-                    title: '网上商城建设',
-                    eng_title: 'eCommerce Site',
-                    img: require('@/assets/img/service3.jpg')
-                },{
-                    id: 'section-4',
-                    title: 'iOS应用定制开发',
-                    eng_title: 'iOS App Dev',
-                    img: require('@/assets/img/service4.jpg')
-                }
-            ]
-        }
-    },
-    mounted(){
-        var wow = new WOW();
-        wow.init();
-    },
-    methods:{
-        ServiceClick(id){
-            this.$router.push({
-                name: 'servicedetail',
-                params: {
-                    id: id
-                }
-            })
-        }
-    }
-}
+	props: {},
+	data() {
+		return {
+			active: 0 // 当前激活的导航索引
+		};
+	},
+	mounted() {
+		// 监听滚动事件
+		window.addEventListener('scroll', this.onScroll, false);
+	},
+	destroy() {
+		// 必须移除监听器，不然当该vue组件被销毁了，监听器还在就会出错
+		window.removeEventListener('scroll', this.onScroll);
+	},
+	methods: {
+		// 滚动监听器
+		onScroll() {
+			// 获取所有锚点元素
+			const navContents = document.querySelectorAll('.content .item');
+			// 所有锚点元素的 offsetTop
+			const offsetTopArr = [];
+			navContents.forEach(item => {
+				offsetTopArr.push(item.offsetTop);
+			});
+			// 获取当前文档流的 scrollTop
+			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			// 定义当前点亮的导航下标
+			let navIndex = 0;
+			for (let n = 0; n < offsetTopArr.length; n++) {
+				// 如果 scrollTop 大于等于第n个元素的 offsetTop 则说明 n-1 的内容已经完全不可见
+				// 那么此时导航索引就应该是n了
+				console.log(scrollTop)
+				if (scrollTop >= offsetTopArr[n]-10) {
+					navIndex = n;
+				}
+			}
+			this.active = navIndex;
+		},
+		// 跳转到指定索引的元素
+		scrollTo(index) {
+			// 获取目标的 offsetTop
+			// css选择器是从 1 开始计数，我们是从 0 开始，所以要 +1
+			const targetOffsetTop = document.querySelector(`.content div:nth-child(${index + 1})`).offsetTop;
+			// 获取当前 offsetTop
+			let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			// 定义一次跳 50 个像素，数字越大跳得越快，但是会有掉帧得感觉，步子迈大了会扯到蛋
+			const STEP = 50;
+			// 判断是往下滑还是往上滑
+			if (scrollTop > targetOffsetTop) {
+				// 往上滑
+				smoothUp();
+			} else {
+				// 往下滑
+				smoothDown();
+			}
+			// 定义往下滑函数
+			function smoothDown() {
+				// 如果当前 scrollTop 小于 targetOffsetTop 说明视口还没滑到指定位置
+				if (scrollTop < targetOffsetTop) {
+					// 如果和目标相差距离大于等于 STEP 就跳 STEP
+					// 否则直接跳到目标点，目标是为了防止跳过了。
+					if (targetOffsetTop - scrollTop >= STEP) {
+						scrollTop += STEP;
+					} else {
+						scrollTop = targetOffsetTop;
+					}
+					document.body.scrollTop = scrollTop;
+					document.documentElement.scrollTop = scrollTop;
+					// 关于 requestAnimationFrame 可以自己查一下，在这种场景下，相比 setInterval 性价比更高
+					requestAnimationFrame(smoothDown);
+				}
+			}
+			// 定义往上滑函数
+			function smoothUp() {
+				if (scrollTop > targetOffsetTop) {
+					if (scrollTop - targetOffsetTop >= STEP) {
+						scrollTop -= STEP;
+					} else {
+						scrollTop = targetOffsetTop;
+					}
+					document.body.scrollTop = scrollTop;
+					document.documentElement.scrollTop = scrollTop;
+					requestAnimationFrame(smoothUp);
+				}
+			}
+		}
+	}
+};
 </script>
+
 <style scoped>
-.Service-container{
-    padding: 30px 50px;
+/* 内容区的样式 */
+.content {
+	background-color: white;
+	width: 500px;
 }
-.Service-item{
-    margin-bottom: 50px;
+.content div {
+	width: 100%;
+	height: 600px;
+	font-size: 36px;
+	padding: 20px;
+	background-color: #7ec384;
 }
-.Service-item-wrapper{
-    cursor: pointer;
-    background: rgba(244,244,244,1);
-    overflow: hidden;
-    position: relative;
+.content div:nth-child(2n) {
+	background-color: #847ec3;
 }
-.Service-item-top{
-    width: 100%;
-    height: 120px;
-    padding: 30px;
-    text-align: center;
+/* 导航栏的样式 */
+.navs {
+	position: fixed;
+	top: 80px;
+	left: 700px;
+	background-color: #efefef;
 }
-.Service-item-top>i{
-    display: inline-block;
-    width: 25px;
-    height: 2px;
-    background: #28f;
+.navs li {
+	padding: 0 20px;
+	line-height: 1.6;
+	font-size: 24px;
 }
-.Service-item-top>p{
-    color: #b2b2b2;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all .5s ease;
-}
-.Service-item-img{
-    width: 100%;
-    overflow: hidden;
-}
-.Service-item-img img{
-    width: 100%;
-    transition: all 0.5s ease;
-}
-.Service-item-border{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    z-index: 9999999;
-    width: 100%;
-    height: 100%;
-    transition: all 0.5s ease;
-    border: 1px solid #000;
-    opacity: 0;
-}
-.Service-item-wrapper:hover .Service-item-top > i{
-    opacity: 0;
-}
-.Service-item-wrapper:hover .Service-item-top > p{
-    opacity: 1;
-    transform: translateY(-10px);
-}
-.Service-item-wrapper:hover .Service-item-img > img{
-    transform: scale(1.1,1.1);
-}
-.Service-item-wrapper:hover > .Service-item-border{
-    opacity: 1;
-    width: 90%;
-    height: 90%;
+/* 当导航被点亮后改变颜色 */
+.navs .active {
+	color: #847ec3;
+	background-color: #e2e2e2;
 }
 </style>
-

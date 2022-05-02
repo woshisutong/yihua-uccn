@@ -1,50 +1,166 @@
-html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img {
-      margin: 0;
-      padding: 0
-  }
-  fieldset,img {
-      border: 0
-  }
-  img {
-      display: block
- }
- a{
- 	color: #666;
- 	text-decoration: none
- }
- address,caption,cite,code,dfn,th,var {
-     font-style: normal;
-     font-weight: normal
- }
- ul,ol {
-     list-style: none
- }
- input {
-     padding-top: 0;
-     padding-bottom: 0;
-     font-family: "SimSun","宋体"
- }
- input::-moz-focus-inner {
-     border: 0;
-     padding: 0
- }
- select,input {
-     vertical-align: middle
- }
- select,input,textarea {
-     font-size: 12px;
-     margin: 0
- }
- input[type="text"],input[type="password"],textarea {
-     outline-style: none;
-     -webkit-appearance: none
- }
- textarea {
-     resize: none
- }
- table {
-     border-collapse: collapse
- }
- *{
-    font-weight: 500;
- }
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img {
+	margin: 0;
+	padding: 0
+}
+
+fieldset,
+img {
+	border: 0
+}
+
+img {
+	display: block
+}
+
+a {
+	color: #666;
+	text-decoration: none
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+th,
+var {
+	font-style: normal;
+	font-weight: normal
+}
+
+ul,
+ol {
+	list-style: none
+}
+
+input {
+	padding-top: 0;
+	padding-bottom: 0;
+	font-family: "SimSun", "宋体"
+}
+
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0
+}
+
+select,
+input {
+	vertical-align: middle
+}
+
+select,
+input,
+textarea {
+	font-size: 12px;
+	margin: 0
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+	outline-style: none;
+	-webkit-appearance: none
+}
+
+textarea {
+	resize: none
+}
+
+table {
+	border-collapse: collapse
+}
+
+* {
+	font-weight: 500;
+	margin: 0;
+	padding: 0;
+}
+
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+.df {
+	display: flex;
+}
+
+.fw-w {
+	flex-wrap: wrap;
+}
+
+.df-ac {
+	display: flex;
+	align-items: center;
+}
+
+.fd-c {
+	flex-direction: column;
+}
+
+.df-ac-jc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.df-ac-jsb {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.clearfix:after {
+	/*伪元素是行内元素 正常浏览器清除浮动方法*/
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	*zoom: 1;
+	/*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+}
+
+.ellipsis1 {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ellipsis2 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.ellipsis3 {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+}
