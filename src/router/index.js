@@ -1,14 +1,17 @@
 import {
 	createRouter,
-	createWebHistory
+	createWebHistory,
+	createWebHashHistory
 } from 'vue-router'
-
+// import routes from "./routes";
 import PageView from '@/views/PageView'
 import HomePage from '@/views/HomePage'
-import Service from '@/views/Service'
+
 
 const router = createRouter({
-	history: createWebHistory(),
+	// history: createWebHashHistory(),//修改后
+	history: createWebHashHistory(process.env.BASE_URL),//带#
+	// history: createWebHistory(process.env.BASE_URL),//不带# 但是刷新就404
 	routes: [{
 		path: '/',
 		redirect: '/home'
@@ -21,13 +24,6 @@ const router = createRouter({
 			name: 'home',
 			component: HomePage,
 		}]
-	}, {
-		path: '/service',
-		name: 'service',
-		component: Service,
-		meta: {
-			title: '相关服务'
-		}
 	}],
 
 })

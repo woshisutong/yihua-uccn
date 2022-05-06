@@ -1,7 +1,7 @@
 <template>
   <div id="footer" class="container-fluid">
     <div class="logo">
-      <img src="@/assets/img/logo_white.png" alt="logo图">
+      <img src="@/assets/img/logo.png" alt="logo图">
     </div>
     <p class="title">公司企业网站模板</p>
     <p class="address_tel_fax">
